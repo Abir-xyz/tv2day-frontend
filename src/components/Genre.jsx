@@ -6,13 +6,10 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 const Genre = ({ data }) => {
   const { genres, number_of_seasons } = data;
-  const { addToWatchList } = useDataContext();
+  const { handleAddToWatchlist } = useDataContext();
   const { id } = useParams();
   const { user } = useAuth0();
   const type = number_of_seasons ? 'tv' : 'movie';
-
-  console.log(number_of_seasons);
-  
 
   return (
     <Wrapper className='section'>
@@ -31,7 +28,7 @@ const Genre = ({ data }) => {
           )}
         </div>
         <div className='watchList-wrapper'>
-          <button onClick={() => addToWatchList(user.email, id, type)}>
+          <button onClick={() => handleAddToWatchlist(user.email, id, type)}>
             <CiHeart />
           </button>
         </div>

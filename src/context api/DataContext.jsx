@@ -93,21 +93,21 @@ export const DataProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    const fetchWatchlist = async () => {
-      try {
-        const res = await fetch(userWatchListApi);
-        const data = await res.json();
-        const watchlistItems = data.map((item) => ({
-          id: item.itemId,
-          type: item.type,
-        }));
-        setWatchlist(watchlistItems);
-      } catch (err) {
-        console.log(err);
-      }
-    };
+  const fetchWatchlist = async () => {
+    try {
+      const res = await fetch(userWatchListApi);
+      const data = await res.json();
+      const watchlistItems = data.map((item) => ({
+        id: item.itemId,
+        type: item.type,
+      }));
+      setWatchlist(watchlistItems);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
+  useEffect(() => {
     if (user) fetchWatchlist();
   }, [user]);
 
@@ -170,6 +170,14 @@ export const DataProvider = ({ children }) => {
     }
   };
 
+  const handleAddToWatchlist = async (userId, itemId, type) => {
+    await addToWatchList(userId, itemId, type);
+
+    // update local state so UI updates immediately
+    // setWatchlist((prev) => [...prev, { id: itemId, type }]);
+    fetchWatchlist();
+  };
+
   // fetch watchlist items to watchlist page
   const fetchWatchlistItem = async ({ id, type }) => {
     try {
@@ -181,6 +189,7 @@ export const DataProvider = ({ children }) => {
   };
 
   const watchListResult = async () => {
+    setIsLoading(true);
     try {
       if (!watchlist || watchlist.length === 0) return;
 
@@ -188,7 +197,19 @@ export const DataProvider = ({ children }) => {
         watchlist.map((item) => fetchWatchlistItem(item))
       );
       setWListItems(listItems);
+      setIsLoading(false);
       console.log('Watchlist data:', listItems);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteAll = async () => {
+    try {
+      await axios.delete(
+        `http://localhost:5000/api/watchlist/all/${user.email}`
+      );
+      setWListItems([]);
     } catch (error) {
       console.log(error);
     }
@@ -232,6 +253,8 @@ export const DataProvider = ({ children }) => {
         userWatchList,
         watchlist,
         wListItems,
+        handleAddToWatchlist,
+        deleteAll,
       }}
     >
       {children}
