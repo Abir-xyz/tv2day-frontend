@@ -24,7 +24,8 @@ export const DataProvider = ({ children }) => {
   const [allSeries, setAllSeries] = useState('');
   const [userWatchList, setUserWatchList] = useState('');
   const [watchlist, setWatchlist] = useState([]);
-  const [wListItems, setWListItems] = useState('');
+  const [wListItems, setWListItems] = useState([]);
+  const [mongodbApi, setMongodbApi] = useState([]);
   const { user } = useAuth0();
 
   const userWatchListApi = `http://localhost:5000/api/watchlist/${user?.email}`;
@@ -34,7 +35,7 @@ export const DataProvider = ({ children }) => {
     setIsLoading(true);
     try {
       const response = await axios(
-        `${rootURL}/trending/movie/day?api_key=${key}`
+        `${rootURL}/trending/movie/day?api_key=${key}`,
       );
       const data = await response.data;
       setTrendingMovies(data);
@@ -83,7 +84,7 @@ export const DataProvider = ({ children }) => {
   const getSearchedValue = async (value) => {
     try {
       const response = await axios(
-        `${rootURL}/search/multi?api_key=${key}&query=${value}`
+        `${rootURL}/search/multi?api_key=${key}&query=${value}`,
       );
       const data = response.data;
       setResults(data);
@@ -114,7 +115,7 @@ export const DataProvider = ({ children }) => {
   const getUserWatchList = async (value) => {
     try {
       const response = await axios(
-        `${rootURL}/search/multi?api_key=${key}&query=${value}`
+        `${rootURL}/search/multi?api_key=${key}&query=${value}`,
       );
       const data = response.data;
       setUserWatchList(data);
@@ -194,7 +195,7 @@ export const DataProvider = ({ children }) => {
       if (!watchlist || watchlist.length === 0) return;
 
       const listItems = await Promise.all(
-        watchlist.map((item) => fetchWatchlistItem(item))
+        watchlist.map((item) => fetchWatchlistItem(item)),
       );
       setWListItems(listItems);
       setIsLoading(false);
@@ -204,10 +205,11 @@ export const DataProvider = ({ children }) => {
     }
   };
 
+  // delete all items
   const deleteAll = async () => {
     try {
       await axios.delete(
-        `http://localhost:5000/api/watchlist/all/${user.email}`
+        `http://localhost:5000/api/watchlist/all/${user.email}`,
       );
       setWListItems([]);
     } catch (error) {
@@ -215,9 +217,57 @@ export const DataProvider = ({ children }) => {
     }
   };
 
+  // retrieve the user's watch list api to get the mongoDB id
+  const fetchMongoList = async () => {
+    try {
+      const res = await axios(
+        `http://localhost:5000/api/watchlist/${user.email}`,
+      );
+      const data = await res.data;
+      console.log(data);
+      setMongodbApi(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // delete single item
+  // const handleDelete = async (mongoId) => {
+  //   try {
+  //     const res = await fetch(
+  //       `http://localhost:5000/api/watchlist/${mongoId}`,
+  //       {
+  //         method: 'DELETE',
+  //       },
+  //     );
+  //     if (res.ok) {
+  //       // remove item from state so UI updates
+  //       setWListItems((prev) => prev.filter((item) => item._id !== mongoId));
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  const handleDelete = async (mongoId) => {
+    try {
+      // Delete from backend
+      await axios.delete(`http://localhost:5000/api/watchlist/${mongoId}`);
+
+      // Update frontend state
+      setWListItems((prev) => prev.filter((item) => item._id !== mongoId));
+
+      // If you are rendering from mongodbApi array as well, update it too
+      setMongodbApi((prev) => prev.filter((item) => item._id !== mongoId));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
     if (watchlist.length > 0) {
       watchListResult();
+      fetchMongoList();
     }
   }, [watchlist]);
 
@@ -255,6 +305,8 @@ export const DataProvider = ({ children }) => {
         wListItems,
         handleAddToWatchlist,
         deleteAll,
+        handleDelete,
+        mongodbApi,
       }}
     >
       {children}

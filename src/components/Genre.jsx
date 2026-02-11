@@ -1,15 +1,20 @@
 import styled from 'styled-components';
 import { CiHeart } from 'react-icons/ci';
+import { IoHeartDislikeOutline } from 'react-icons/io5';
 import { useDataContext } from '../context api/DataContext';
 import { useParams } from 'react-router';
 import { useAuth0 } from '@auth0/auth0-react';
 
 const Genre = ({ data }) => {
   const { genres, number_of_seasons } = data;
-  const { handleAddToWatchlist } = useDataContext();
+  const { handleAddToWatchlist, wListItems, mongodbApi, handleDelete } =
+    useDataContext();
   const { id } = useParams();
   const { user } = useAuth0();
   const type = number_of_seasons ? 'tv' : 'movie';
+
+  // const isInWatchlist = wListItems.some((item) => item.id === Number(id));
+  const isInWatchlist = mongodbApi.some((item) => item.itemId === id);
 
   return (
     <Wrapper className='section'>
@@ -28,9 +33,45 @@ const Genre = ({ data }) => {
           )}
         </div>
         <div className='watchList-wrapper'>
-          <button onClick={() => handleAddToWatchlist(user.email, id, type)}>
-            <CiHeart />
+          <button
+            className='heart-btn'
+            onClick={() => handleAddToWatchlist(user.email, id, type)}
+          >
+            {isInWatchlist ? '❤️' : '🤍'}
           </button>
+          {/* {isInWatchlist && (
+            <button className='del-btn'>
+              <IoHeartDislikeOutline />
+            </button>
+          )} */}
+
+          {/* {isInWatchlist && (
+            <button
+              className='del-btn'
+              onClick={() => {
+                const itemToDelete = mongodbApi.find(
+                  (item) => item.itemId === id,
+                );
+                if (itemToDelete) handleDelete(itemToDelete._id);
+              }}
+            >
+              <IoHeartDislikeOutline />
+            </button>
+          )} */}
+
+          {isInWatchlist && (
+            <button
+              className='del-btn'
+              onClick={() => {
+                const itemToDelete = mongodbApi.find(
+                  (item) => item.itemId === id,
+                );
+                if (itemToDelete) handleDelete(itemToDelete._id);
+              }}
+            >
+              <IoHeartDislikeOutline />
+            </button>
+          )}
         </div>
       </main>
     </Wrapper>
