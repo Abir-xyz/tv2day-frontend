@@ -16,7 +16,7 @@ const Footer = () => {
           {/* <p>
             If you want to say something then <Link to='/contact'>Contact</Link>
           </p> */}
-          <p>Copyright © {currentYear} MovieDekhbo</p>
+          <p>Copyright © {currentYear} Tv2day</p>
         </div>
       </div>
     </Wrapper>
