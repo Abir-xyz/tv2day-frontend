@@ -1,19 +1,19 @@
 import styled from 'styled-components';
 
 const VideoPlayer = ({ id }) => {
-  // const videoURL = `https://vidsrc.to/embed/movie/${id}`;
-  // return (
-  //   <Wrapper className='section'>
-  //     <div className='player'>
-  //       <iframe
-  //         src={videoURL}
-  //         allowFullScreen
-  //         frameBorder='0'
-  //         title='Video Player'
-  //       ></iframe>
-  //     </div>
-  //   </Wrapper>
-  // );
+  const videoURL = `https://vidsrc.to/embed/movie/${id}`;
+  return (
+    <Wrapper className='section'>
+      <div className='player'>
+        <iframe
+          src={videoURL}
+          allowFullScreen
+          frameBorder='0'
+          title='Video Player'
+        ></iframe>
+      </div>
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.section`
