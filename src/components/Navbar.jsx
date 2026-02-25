@@ -56,7 +56,7 @@ const Navbar = () => {
               </h1>
             ) : (
               <h1 className='animate__animated animate__bounceIn'>
-                MovieDekhbo
+                Tv2day
               </h1>
             )}
           </Link>
