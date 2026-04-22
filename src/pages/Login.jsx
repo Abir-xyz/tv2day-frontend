@@ -9,7 +9,7 @@ const Login = () => {
         <div className='banner-wrapper'>
           <div className='navbar'>
             <Link to='/' className='brand-login'>
-              MovieDekhbo
+              TV2DAY
             </Link>
           </div>
           <div className='banner'>
@@ -27,19 +27,19 @@ const Wrapper = styled.section`
     position: relative;
   }
   .banner-wrapper {
-    background-image: url('/assets/gallery/cool1.svg');
+    background-image: url('/assets/gallery/bg.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    min-height: 100vh;
+    min-height: 100%;
+    height: 100vh;
     width: 100%;
   }
   .brand-login {
     font-size: 1.5rem;
     text-decoration: none;
     color: #fff;
-    font-family: 'Lobster', sans-serif;
-    font-weight: 500;
+    font-weight: 700;
     letter-spacing: 1px;
   }
   .navbar {

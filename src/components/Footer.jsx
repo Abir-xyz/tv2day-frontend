@@ -23,7 +23,7 @@ const Footer = () => {
 const Wrapper = styled.section`
   .main {
     min-height: 16vh;
-    margin-top: 4rem;
+    /* margin-top: 4rem; */
     background-color: #000000;
     color: #7a7a7a;
     padding: 12px 0;

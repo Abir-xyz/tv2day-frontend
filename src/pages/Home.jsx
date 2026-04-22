@@ -21,6 +21,10 @@ const Home = () => {
   );
 };
 
-const Wrapper = styled.section``;
+const Wrapper = styled.section`
+  .home {
+    margin-bottom: 4rem !important;
+  }
+`;
 
 export default Home;

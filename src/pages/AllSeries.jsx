@@ -99,6 +99,7 @@ const Wrapper = styled.section`
     min-height: 100vh;
     max-width: 90vw;
     margin: 0 auto;
+    margin-bottom: 4rem !important;
   }
   .content-container {
     margin-top: 4rem;
