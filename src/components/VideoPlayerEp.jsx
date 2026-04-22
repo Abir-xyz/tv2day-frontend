@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const VideoPlayerEp = ({ id, number, episode }) => {
-  const videoURL = `https://vidsrc.to/embed/tv/${id}/${number}/${episode}`;
+  const videoURL = `/.netlify/functions/embed?type=tv&id=${id}/${number}/${episode}`;
 
   return (
     <Wrapper className='section'>
