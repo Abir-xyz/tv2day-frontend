@@ -8,7 +8,7 @@ const DataContext = createContext();
 const rootURL = `https://api.themoviedb.org/3`;
 const key = import.meta.env.VITE_API_KEY;
 const watchListApi = axios.create({
-  baseURL: 'http://localhost:5000/api/watchlist',
+  baseURL: 'https://tv2day-backend.onrender.com/api/watchlist',
 });
 
 export const DataProvider = ({ children }) => {
@@ -28,7 +28,7 @@ export const DataProvider = ({ children }) => {
   const [mongodbApi, setMongodbApi] = useState([]);
   const { user } = useAuth0();
 
-  const userWatchListApi = `http://localhost:5000/api/watchlist/${user?.email}`;
+  const userWatchListApi = `https://tv2day-backend.onrender.com/api/watchlist/${user?.email}`;
 
   // get trendingMovies
   const getTrendingMovies = async () => {
@@ -199,7 +199,6 @@ export const DataProvider = ({ children }) => {
       );
       setWListItems(listItems);
       setIsLoading(false);
-      console.log('Watchlist data:', listItems);
     } catch (error) {
       console.log(error);
     }
@@ -209,7 +208,7 @@ export const DataProvider = ({ children }) => {
   const deleteAll = async () => {
     try {
       await axios.delete(
-        `http://localhost:5000/api/watchlist/all/${user.email}`,
+        `https://tv2day-backend.onrender.com/api/watchlist/all/${user.email}`,
       );
       setWListItems([]);
     } catch (error) {
@@ -221,10 +220,10 @@ export const DataProvider = ({ children }) => {
   const fetchMongoList = async () => {
     try {
       const res = await axios(
-        `http://localhost:5000/api/watchlist/${user.email}`,
+        `https://tv2day-backend.onrender.com/api/watchlist/${user.email}`,
       );
       const data = await res.data;
-      console.log(data);
+
       setMongodbApi(data);
     } catch (error) {
       console.log(error);
@@ -252,7 +251,9 @@ export const DataProvider = ({ children }) => {
   const handleDelete = async (mongoId) => {
     try {
       // Delete from backend
-      await axios.delete(`http://localhost:5000/api/watchlist/${mongoId}`);
+      await axios.delete(
+        `https://tv2day-backend.onrender.com/api/watchlist/${mongoId}`,
+      );
 
       // Update frontend state
       setWListItems((prev) => prev.filter((item) => item._id !== mongoId));
