@@ -9,7 +9,7 @@ const Watchlist = () => {
 
   const moviePosterURL = `https://image.tmdb.org/t/p/w500`;
 
-  console.log(wListItems);
+  console.log(wListItems);``
 
   return (
     <Wrapper className='section'>

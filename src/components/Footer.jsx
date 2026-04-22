@@ -8,14 +8,11 @@ const Footer = () => {
     <Wrapper className='section'>
       <div className='main'>
         <div className='wrapper'>
+          <p>use Brave or AdBlocker for better experience</p>
           <p>
             This site does not host any files. All content is provided by third
             parties.
           </p>
-          {/* <p>All contents are provided by non-affiliated third parties.</p> */}
-          {/* <p>
-            If you want to say something then <Link to='/contact'>Contact</Link>
-          </p> */}
           <p>Copyright © {currentYear} Tv2day</p>
         </div>
       </div>
