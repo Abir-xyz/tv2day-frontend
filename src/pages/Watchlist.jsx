@@ -204,18 +204,18 @@ const Wrapper = styled.section`
       font-size: 1.2rem;
     }
     .delete-btn button {
-      background: #ff0000b0;
+      background: transparent;
       color: #fff;
+      border: 1px solid #fff;
+      border-radius: 50px;
       font-size: 1rem;
-      border: none;
-      outline: none;
       padding: 6px 12px;
-      border-radius: 2px;
       cursor: pointer;
       transition: all 0.2s ease-in-out;
     }
     .delete-btn button:hover {
-      background: #702020;
+      background: #7a1313;
+      border-color: #7a1313;
     }
   }
 
