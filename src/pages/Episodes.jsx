@@ -42,6 +42,8 @@ const Wrapper = styled.section`
 
   .links .link {
     color: #ebebeb;
+    padding-top: 6px;
+    padding-bottom: 6px;
   }
   .active-link {
     background-color: #ebebeb;

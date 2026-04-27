@@ -11,6 +11,9 @@ import AllMovies from './AllMovies';
 import AllSeries from './AllSeries';
 import Warning from './Warning';
 import Watchlist from './Watchlist';
+import Category from './Category';
+import MovieCat from './MovieCat';
+import TvCat from './TvCat';
 
 export {
   Login,
@@ -26,4 +29,7 @@ export {
   Error,
   Warning,
   Watchlist,
+  Category,
+  MovieCat,
+  TvCat,
 };

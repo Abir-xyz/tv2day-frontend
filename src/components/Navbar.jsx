@@ -4,6 +4,7 @@ import { CiSearch } from 'react-icons/ci';
 import { CiHome } from 'react-icons/ci';
 import { MdMovie } from 'react-icons/md';
 import { MdOutlineLiveTv } from 'react-icons/md';
+import { MdCategory } from 'react-icons/md';
 import { FaFolderOpen } from 'react-icons/fa6';
 import { FaBarsStaggered } from 'react-icons/fa6';
 import LoginSys from './LoginSys';
@@ -55,9 +56,7 @@ const Navbar = () => {
                 Hi, {user.name}{' '}
               </h1>
             ) : (
-              <h1 className='animate__animated animate__bounceIn'>
-                Tv2day
-              </h1>
+              <h1 className='animate__animated animate__bounceIn'>Tv2day</h1>
             )}
           </Link>
         </div>
@@ -84,6 +83,13 @@ const Navbar = () => {
                 <MdOutlineLiveTv />
               </span>
               <span>Series</span>
+            </NavLink>
+            {/* categories */}
+            <NavLink to='/category' className='link'>
+              <span className='icon'>
+                <MdCategory />
+              </span>
+              <span>Category</span>
             </NavLink>
             <NavLink to='/watchlist' className='link'>
               <span className='icon'>
@@ -228,7 +234,8 @@ const Wrapper = styled.section`
     background-color: #7678ed;
     cursor: pointer;
     transition: all 0.1s ease-in-out;
-    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+    box-shadow:
+      rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
       rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
   }
 
@@ -337,7 +344,8 @@ const Wrapper = styled.section`
       padding: 3.66rem 1.5rem; /* add horizontal padding */
       border-top-right-radius: 26px !important;
       border-top-left-radius: 26px !important;
-      box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+      box-shadow:
+        rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
         rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
       transform: translateX(-100vw);
       transition: none;

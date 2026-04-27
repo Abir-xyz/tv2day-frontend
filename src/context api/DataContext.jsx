@@ -25,6 +25,10 @@ export const DataProvider = ({ children }) => {
   const [userWatchList, setUserWatchList] = useState('');
   const [watchlist, setWatchlist] = useState([]);
   const [wListItems, setWListItems] = useState([]);
+  const [movieCategory, setMovieCategory] = useState('');
+  const [tvCategory, setTvCategory] = useState('');
+  const [catMovie, setCatMovie] = useState('');
+  const [catTv, setCatTv] = useState('');
   const [mongodbApi, setMongodbApi] = useState([]);
   const { user } = useAuth0();
 
@@ -142,6 +146,46 @@ export const DataProvider = ({ children }) => {
     }
   };
 
+  // get movie category
+  const getCatMovies = async (pageNum, genreId) => {
+    setIsLoading(true);
+    try {
+      const response = await axios(`${rootURL}/discover/movie`, {
+        params: {
+          api_key: `${key}`,
+          with_genres: genreId,
+          page: pageNum,
+        },
+      });
+      setCatMovie(response.data.results);
+      console.log(response.data.results);
+
+      setTotalPages(response.data.total_pages);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // get tv category
+  const getCatTv = async (pageNum, genreId) => {
+    setIsLoading(true);
+    try {
+      const response = await axios(`${rootURL}/discover/tv`, {
+        params: {
+          api_key: `${key}`,
+          with_genres: genreId,
+          page: pageNum,
+        },
+      });
+      setCatTv(response.data.results);
+      setTotalPages(response.data.total_pages);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   // get all series
   const getAllSeries = async (pageNum) => {
     setIsLoading(true);
@@ -155,6 +199,34 @@ export const DataProvider = ({ children }) => {
       setAllSeries(response.data.results);
       setTotalPages(response.data.total_pages);
       setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // get category
+  const getMovieCategory = async () => {
+    setIsLoading(true);
+    try {
+      const response = await axios(
+        `${rootURL}/genre/movie/list?api_key=${key}`,
+      );
+      const data = await response.data;
+      console.log(data);
+      setMovieCategory(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // get tv category
+  const getTvCategory = async () => {
+    setIsLoading(true);
+    try {
+      const response = await axios(`${rootURL}/genre/tv/list?api_key=${key}`);
+      const data = await response.data;
+      console.log(data);
+      setTvCategory(data);
     } catch (error) {
       console.log(error);
     }
@@ -277,6 +349,8 @@ export const DataProvider = ({ children }) => {
     getTrendingSeries();
     getTopMovies();
     getTopSeries();
+    getMovieCategory();
+    getTvCategory();
     // addToWatchList();
     getUserWatchList();
   }, []);
@@ -299,6 +373,12 @@ export const DataProvider = ({ children }) => {
         isLoading,
         getAllSeries,
         allSeries,
+        movieCategory,
+        tvCategory,
+        catMovie,
+        catTv,
+        getCatMovies,
+        getCatTv,
         addToWatchList,
         setUserWatchList,
         userWatchList,
