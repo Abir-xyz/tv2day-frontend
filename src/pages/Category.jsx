@@ -12,14 +12,6 @@ const Category = () => {
   const [movieCatId, setMovieCatId] = useState(28);
   const [tvCatId, setTvCatId] = useState(10759);
 
-  {
-    movieCatId && console.log(movieCatId);
-  }
-
-  {
-    tvCatId && console.log(tvCatId);
-  }
-
   return (
     <Wrapper className='section'>
       <main className='main'>
@@ -175,6 +167,22 @@ const Wrapper = styled.section`
   }
   a {
     text-decoration: none;
+  }
+
+  @media screen and (max-width: 768px) {
+    .content-btn-container {
+      margin-top: 2rem !important;
+    }
+    .main {
+      max-width: 100vw !important;
+      margin: 0 auto !important;
+    }
+    .content-container {
+      padding: 0 !important;
+    }
+    .btn-container {
+      margin-bottom: 2rem !important;
+    }
   }
 `;
 

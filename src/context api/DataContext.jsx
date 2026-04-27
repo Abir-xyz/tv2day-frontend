@@ -212,7 +212,7 @@ export const DataProvider = ({ children }) => {
         `${rootURL}/genre/movie/list?api_key=${key}`,
       );
       const data = await response.data;
-      console.log(data);
+
       setMovieCategory(data);
     } catch (error) {
       console.log(error);
@@ -225,7 +225,7 @@ export const DataProvider = ({ children }) => {
     try {
       const response = await axios(`${rootURL}/genre/tv/list?api_key=${key}`);
       const data = await response.data;
-      console.log(data);
+
       setTvCategory(data);
     } catch (error) {
       console.log(error);
